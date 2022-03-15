@@ -1,0 +1,54 @@
+java_library(
+    name = "avro4s-annotations",
+    srcs = glob(["src/main/scala/com/sksamuel/avro4s/**/*.java"]),
+    deps = [],
+)
+
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library", "scala_binary", "scala_test")
+
+scala_library(
+    name = "avro4s-core",
+    srcs = glob(["src/main/scala/com/sksamuel/avro4s/**/*.scala"]),
+    scalacopts = [
+      "-unchecked",
+      "-deprecation",
+      "-encoding",
+      "utf8",
+      "-feature",
+      "-language:higherKinds",
+      "-language:existentials",
+      "-Ybackend-parallelism",
+      "8"
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":avro4s-annotations",
+        "@third_party//3rdparty/jvm/com/chuusai:shapeless",
+        "@third_party//3rdparty/jvm/com/propensive:magnolia",
+        "@third_party//3rdparty/jvm/org/json4s:json4s_core",
+        "@third_party//3rdparty/jvm/org/json4s:json4s_ast",
+        "@third_party//3rdparty/jvm/org/json4s:json4s_native",
+        "@third_party//3rdparty/jvm/org/apache/avro:avro",
+    ],
+)
+
+scala_test(
+    name = "avro4s-core-test",
+    srcs = glob(["src/test/scala/com/sksamuel/avro4s/**/*.scala"]),
+    scalacopts = [
+      "-unchecked",
+      "-deprecation",
+      "-encoding",
+      "utf8",
+      "-feature",
+      "-language:higherKinds",
+      "-language:existentials",
+      "-Ybackend-parallelism",
+      "8"
+    ],
+    deps = [
+        ":avro4s-core",
+        "@third_party//3rdparty/jvm/com/chuusai:shapeless",
+        "@third_party//3rdparty/jvm/org/apache/avro:avro",
+    ],
+)
