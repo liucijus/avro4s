@@ -4,51 +4,52 @@ java_library(
     deps = [],
 )
 
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library", "scala_binary", "scala_test")
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary", "scala_library", "scala_macro_library", "scala_test")
 
-scala_library(
+scala_macro_library(
     name = "avro4s-core",
-    srcs = glob(["src/main/scala/com/sksamuel/avro4s/**/*.scala"]),
+    srcs = glob(["src/main/scala/com/sksamuel/avro4s/**/*.scala"]) + glob(["src/main/scala/com/sksamuel/avro4s/**/*.java"]),
     scalacopts = [
-      "-unchecked",
-      "-deprecation",
-      "-encoding",
-      "utf8",
-      "-feature",
-      "-language:higherKinds",
-      "-language:existentials",
-      "-Ybackend-parallelism",
-      "8"
+        "-unchecked",
+        "-deprecation",
+        "-encoding",
+        "utf8",
+        "-feature",
+        "-language:higherKinds",
+        "-language:existentials",
+        "-Ybackend-parallelism",
+        "8",
     ],
     visibility = ["//visibility:public"],
     deps = [
         ":avro4s-annotations",
         "@third_party//3rdparty/jvm/com/chuusai:shapeless",
         "@third_party//3rdparty/jvm/com/propensive:magnolia",
-        "@third_party//3rdparty/jvm/org/json4s:json4s_core",
+        "@third_party//3rdparty/jvm/com/propensive:mercator_2_12",
+        "@third_party//3rdparty/jvm/org/apache/avro",
         "@third_party//3rdparty/jvm/org/json4s:json4s_ast",
+        "@third_party//3rdparty/jvm/org/json4s:json4s_core",
         "@third_party//3rdparty/jvm/org/json4s:json4s_native",
-        "@third_party//3rdparty/jvm/org/apache/avro:avro",
     ],
 )
 
 scala_test(
     name = "avro4s-core-test",
-    srcs = glob(["src/test/scala/com/sksamuel/avro4s/**/*.scala"]),
+    srcs = glob(["src/test/scala/com/sksamuel/avro4s/**/*.scala"]) + glob(["src/test/scala/com/sksamuel/avro4s/**/*.java"]),
     scalacopts = [
-      "-unchecked",
-      "-deprecation",
-      "-encoding",
-      "utf8",
-      "-feature",
-      "-language:higherKinds",
-      "-language:existentials",
-      "-Ybackend-parallelism",
-      "8"
+        "-unchecked",
+        "-deprecation",
+        "-encoding",
+        "utf8",
+        "-feature",
+        "-language:higherKinds",
+        "-language:existentials",
+        "-Ybackend-parallelism",
+        "8",
     ],
     deps = [
         ":avro4s-core",
         "@third_party//3rdparty/jvm/com/chuusai:shapeless",
-        "@third_party//3rdparty/jvm/org/apache/avro:avro",
+        "@third_party//3rdparty/jvm/org/apache/avro",
     ],
 )
