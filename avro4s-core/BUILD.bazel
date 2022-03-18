@@ -6,7 +6,7 @@ java_library(
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary", "scala_library", "scala_macro_library", "scala_test")
 
-scala_macro_library(
+scala_library(
     name = "avro4s-core",
     srcs = glob(["src/main/scala/com/sksamuel/avro4s/**/*.scala"]) + glob(["src/main/scala/com/sksamuel/avro4s/**/*.java"]),
     scalacopts = [
